@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎵 Musik Saya</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #6c63ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        .secure-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #6c63ff, #3a34a0);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .music-player {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .music-player:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .album-cover {
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .song-info {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .song-title {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .song-artist {
+            color: #a0a0ff;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        audio {
+            width: 100%;
+            border-radius: 50px;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .player-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .control-btn {
+            background: linear-gradient(45deg, #6c63ff, #3a34a0);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.5);
+        }
+        
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid #6c63ff;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .album-cover {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .song-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .album-cover {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .music-player {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>
+                <span>🎵</span>
+                KOLEKSI MUSIK SAYA
+                <span>🎧</span>
+            </h1>
+            <p>Website pribadi untuk mendengarkan lagu favorit</p>
+            <div class="secure-badge">
+                🔒 Hanya saya yang bisa edit
+            </div>
+        </div>
+        
+        <!-- INFO -->
+        <div class="info-box">
+            <p><strong>📌 Cara pakai:</strong> Klik tombol play untuk mendengarkan. Hanya owner yang bisa mengganti lagu.</p>
+        </div>
+        
+        <!-- PLAYER 1 -->
+        <div class="music-player" id="player1">
+            <img src="" alt="Album Cover" class="album-cover" id="cover1">
+            <div class="song-info">
+                <div class="song-title" id="title1">Memuat lagu...</div>
+                <div class="song-artist" id="artist1">-</div>
+            </div>
+            
+            <audio controls id="audio1">
+                Browser tidak mendukung pemutar audio.
+            </audio>
+            
+            <div class="player-controls">
+                <button class="control-btn" onclick="playPause(1)">
+                    <span id="playBtn1">▶️</span> Play/Pause
+                </button>
+                <button class="control-btn" onclick="restartSong(1)">
+                    🔄 Restart
+                </button>
+            </div>
+        </div>
+        
+        <!-- PLAYER 2 -->
+        <div class="music-player" id="player2">
+            <img src="" alt="Album Cover" class="album-cover" id="cover2">
+            <div class="song-info">
+                <div class="song-title" id="title2">Memuat lagu...</div>
+                <div class="song-artist" id="artist2">-</div>
+            </div>
+            
+            <audio controls id="audio2">
+                Browser tidak mendukung pemutar audio.
+            </audio>
+            
+            <div class="player-controls">
+                <button class="control-btn" onclick="playPause(2)">
+                    <span id="playBtn2">▶️</span> Play/Pause
+                </button>
+                <button class="control-btn" onclick="restartSong(2)">
+                    🔄 Restart
+                </button>
+            </div>
+        </div>
+        
+        <!-- FOOTER -->
+        <div class="footer">
+            <p>© 2025 Musik Pribadi • Dibuat dengan GitHub Pages</p>
+            <p>Update terakhir: <span id="updateDate">-</span></p>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                💡 Untuk mengganti lagu: edit file config.json di repository GitHub
+            </p>
+        </div>
+    </div>
+    
+    <!-- SCRIPTS -->
+    <script>
+        // Load configuration from config.json
+        fetch('config.json')
+            .then(response => {
+                if (!response.ok) throw new Error('File config tidak ditemukan');
+                return response.json();
+            })
+            .then(data => {
+                // Update player 1
+                document.getElementById('title1').textContent = data.song1.title;
+                document.getElementById('artist1').textContent = data.song1.artist;
+                document.getElementById('cover1').src = data.song1.cover;
+                
+                const audio1 = document.getElementById('audio1');
+                const source1 = document.createElement('source');
+                source1.src = data.song1.audio;
+                source1.type = 'audio/mpeg';
+                audio1.innerHTML = '';
+                audio1.appendChild(source1);
+                audio1.load();
+                
+                // Update player 2
+                document.getElementById('title2').textContent = data.song2.title;
+                document.getElementById('artist2').textContent = data.song2.artist;
+                document.getElementById('cover2').src = data.song2.cover;
+                
+                const audio2 = document.getElementById('audio2');
+                const source2 = document.createElement('source');
+                source2.src = data.song2.audio;
+                source2.type = 'audio/mpeg';
+                audio2.innerHTML = '';
+                audio2.appendChild(source2);
+                audio2.load();
+                
+                // Update date
+                document.getElementById('updateDate').textContent = data.lastUpdate || 'Hari ini';
+                
+                console.log('Musik berhasil dimuat!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('title1').textContent = 'Error: File config.json tidak ditemukan';
+                document.getElementById('title2').textContent = 'Pastikan file config.json sudah dibuat';
+            });
+        
+        // Player control functions
+        function playPause(playerNum) {
+            const audio = document.getElementById('audio' + playerNum);
+            const playBtn = document.getElementById('playBtn' + playerNum);
+            
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶️';
+            }
+        }
+        
+        function restartSong(playerNum) {
+            const audio = document.getElementById('audio' + playerNum);
+            const playBtn = document.getElementById('playBtn' + playerNum);
+            
+            audio.currentTime = 0;
+            audio.play();
+            playBtn.textContent = '⏸️';
+        }
+    </script>
+</body>
+  </html>
